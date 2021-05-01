@@ -195,6 +195,21 @@ class MappingFile implements IMappingFile {
     }
 
     @Override
+    public MappingFile filter() {
+        MappingFile ret = new MappingFile();
+        getPackages().stream().filter(p -> !p.canBeFiltered()).forEach(pkg -> ret.addPackage(pkg.getOriginal(), pkg.getMapped(), pkg.getMetadata()));
+        getClasses().stream().filter(c -> !c.canBeFiltered()).forEach(cls -> {
+            Cls c = ret.addClass(cls.getOriginal(), cls.getMapped(), cls.getMetadata());
+            cls.getFields().stream().filter(f -> !f.canBeFiltered()).forEach(fld -> c.addField(fld.getOriginal(), fld.getMapped(), fld.getMappedDescriptor(), fld.getMetadata()));
+            cls.getMethods().stream().filter(m -> !m.canBeFiltered()).forEach(mtd -> {
+                Cls.Method m = c.addMethod(mtd.getOriginal(), mtd.getDescriptor(), mtd.getMapped(), mtd.getMetadata());
+                mtd.getParameters().stream().filter(p -> !p.canBeFiltered()).forEach(par -> m.addParameter(par.getIndex(), par.getOriginal(), par.getMapped(), par.getMetadata()));
+            });
+        });
+        return ret;
+    }
+
+    @Override
     public MappingFile rename(IRenamer renamer) {
         MappingFile ret = new MappingFile();
         getPackages().stream().forEach(pkg -> ret.addPackage(pkg.getOriginal(), renamer.rename(pkg), pkg.getMetadata()));
@@ -272,6 +287,11 @@ class MappingFile implements IMappingFile {
         }
 
         @Override
+        public boolean canBeFiltered() {
+            return getOriginal() == getMapped();
+        }
+
+        @Override
         @Nullable
         public String write(Format format, boolean reversed) {
             String sorig = getOriginal().isEmpty() ? "." : getOriginal();
@@ -309,6 +329,13 @@ class MappingFile implements IMappingFile {
 
         protected Cls(String original, String mapped, Map<String, String> metadata) {
             super(original, mapped, metadata);
+        }
+
+        @Override
+        public boolean canBeFiltered() {
+            return getOriginal() == getMapped() && (this.fields.isEmpty() && this.methods.isEmpty()
+                || this.fieldsView.stream().allMatch(f -> f.canBeFiltered())
+                    && this.methodsView.stream().allMatch(m -> m.canBeFiltered()));
         }
 
         @Override
@@ -395,6 +422,11 @@ class MappingFile implements IMappingFile {
             }
 
             @Override
+            public boolean canBeFiltered() {
+                return getOriginal() == getMapped();
+            }
+
+            @Override
             @Nullable
             public String write(Format format, boolean reversed) {
                 if (format != Format.TSRG2 && format.hasFieldTypes() && this.desc == null)
@@ -466,6 +498,12 @@ class MappingFile implements IMappingFile {
             }
 
             @Override
+            public boolean canBeFiltered() {
+                return getOriginal() == getMapped() && this.paramsView.isEmpty()
+                    || this.paramsView.stream().allMatch(m -> m.canBeFiltered());
+            }
+
+            @Override
             public String write(Format format, boolean reversed) {
                 String oName = !reversed ? getOriginal() : getMapped();
                 String mName = !reversed ? getMapped() : getOriginal();
@@ -513,6 +551,10 @@ class MappingFile implements IMappingFile {
                 @Override
                 public int getIndex() {
                     return this.index;
+                }
+                @Override
+                public boolean canBeFiltered() {
+                    return getOriginal() == getMapped();
                 }
                 @Override
                 public String write(Format format, boolean reversed) {
