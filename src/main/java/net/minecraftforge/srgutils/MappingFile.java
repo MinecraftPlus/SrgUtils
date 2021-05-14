@@ -322,7 +322,7 @@ class MappingFile implements IMappingFile {
 
         @Override
         public boolean canBeFiltered() {
-            return getOriginal() == getMapped();
+            return getOriginal().equals(getMapped());
         }
 
         @Override
@@ -367,9 +367,10 @@ class MappingFile implements IMappingFile {
 
         @Override
         public boolean canBeFiltered() {
-            return getOriginal() == getMapped() && (this.fields.isEmpty() && this.methods.isEmpty()
-                || this.fieldsView.stream().allMatch(f -> f.canBeFiltered())
-                    && this.methodsView.stream().allMatch(m -> m.canBeFiltered()));
+            boolean result = getOriginal().equals(getMapped())
+                && (this.fields.isEmpty() || this.fieldsView.stream().allMatch(f -> f.canBeFiltered()))
+                && (this.methods.isEmpty() || this.methodsView.stream().allMatch(m -> m.canBeFiltered()));
+            return result;
         }
 
         @Override
@@ -457,7 +458,7 @@ class MappingFile implements IMappingFile {
 
             @Override
             public boolean canBeFiltered() {
-                return getOriginal() == getMapped();
+                return getOriginal().equals(getMapped());
             }
 
             @Override
@@ -533,8 +534,8 @@ class MappingFile implements IMappingFile {
 
             @Override
             public boolean canBeFiltered() {
-                return getOriginal() == getMapped() && this.paramsView.isEmpty()
-                    || this.paramsView.stream().allMatch(m -> m.canBeFiltered());
+                return getOriginal().equals(getMapped())
+                    && (this.paramsView.isEmpty() || this.paramsView.stream().allMatch(p -> p.canBeFiltered()));
             }
 
             @Override
@@ -588,7 +589,7 @@ class MappingFile implements IMappingFile {
                 }
                 @Override
                 public boolean canBeFiltered() {
-                    return getOriginal() == getMapped();
+                    return getOriginal().equals(getMapped());
                 }
                 @Override
                 public String write(Format format, boolean reversed) {
