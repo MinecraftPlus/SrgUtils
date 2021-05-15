@@ -1,0 +1,12 @@
+tsrg2 left right
+classA classB
+	field2A field2A
+	fieldA fieldB
+	method2A (II)D method2A
+		1 firstA firstA
+		2 secondA secondA
+	methodA (LclassA;ZZ)I methodB
+		1 parameterA parameterB
+		3 onlyA3 onlyA3
+		4 onlyA4 onlyA4
+classA2 classA2
