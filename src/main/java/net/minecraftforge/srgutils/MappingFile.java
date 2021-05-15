@@ -228,28 +228,33 @@ class MappingFile implements IMappingFile {
     public MappingFile chain(final IMappingFile link) {
         return rename(new IRenamer() {
             public String rename(IPackage value) {
-                return link.remapPackage(value.getMapped());
+                IPackage pkg = link.getPackage(value.getMapped());
+                return pkg == null ? value.getOriginal() : pkg.getMapped();
             }
 
             public String rename(IClass value) {
-                return link.remapClass(value.getMapped());
+                IClass cls = link.getClass(value.getMapped());
+                return cls == null ? value.getOriginal() : cls.getMapped();
             }
 
             public String rename(IField value) {
                 IClass cls = link.getClass(value.getParent().getMapped());
-                return cls == null ? value.getMapped() : cls.remapField(value.getMapped());
+                IField fld = cls == null ? null : cls.getField(value.getMapped());
+                return fld == null ? value.getOriginal() : fld.getMapped();
             }
 
             public String rename(IMethod value) {
                 IClass cls = link.getClass(value.getParent().getMapped());
-                return cls == null ? value.getMapped() : cls.remapMethod(value.getMapped(), value.getMappedDescriptor());
+                IMethod mtd = cls == null ? null : cls.getMethod(value.getMapped(), value.getMappedDescriptor());
+                return mtd == null ? value.getOriginal() : mtd.getMapped();
             }
 
             public String rename(IParameter value) {
                 IMethod mtd = value.getParent();
                 IClass cls = link.getClass(mtd.getParent().getMapped());
                 mtd = cls == null ? null : cls.getMethod(mtd.getMapped(), mtd.getMappedDescriptor());
-                return mtd == null ? value.getMapped() : mtd.remapParameter(value.getIndex(), value.getMapped());
+                IParameter par = mtd == null ? null : mtd.getParameter(value.getIndex());
+                return par == null ? value.getOriginal() : par.getMapped();
             }
         });
     }
@@ -530,6 +535,11 @@ class MappingFile implements IMappingFile {
             public String remapParameter(int index, String name) {
                 Parameter param = this.params.get(index);
                 return param == null ? name : param.getMapped();
+            }
+
+            @Override
+            public Parameter getParameter(int index) {
+                return this.params.get(index);
             }
 
             @Override
