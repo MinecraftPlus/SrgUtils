@@ -15,7 +15,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.39.0'
 }
 
-group 'net.minecraftforge'
+group 'org.minecraftplus'
 version = gradleutils.getTagOffsetVersion()
 println('Version: ' + version)
 
