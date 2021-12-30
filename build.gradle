@@ -74,15 +74,15 @@ publishing {
             pom {
                 name = 'SRG Utils'
                 description = 'Library for managing java obfuscation mappings in various formats.'
-                url = 'https://github.com/MinecraftForge/SrgUtils'
+                url = 'https://github.com/MinecraftPlus/SrgUtils'
                 scm {
-                    url = 'https://github.com/MinecraftForge/SrgUtils'
-                    connection = 'scm:git:git://github.com/MinecraftForge/SrgUtils.git'
-                    developerConnection = 'scm:git:git@github.com:MinecraftForge/SrgUtils.git'
+                    url = 'https://github.com/MinecraftPlus/SrgUtils'
+                    connection = 'scm:git:git://github.com/MinecraftPlus/SrgUtils.git'
+                    developerConnection = 'scm:git:git@github.com:MinecraftPlus/SrgUtils.git'
                 }
                 issueManagement {
                     system = 'github'
-                    url = 'https://github.com/MinecraftForge/SrgUtils/issues'
+                    url = 'https://github.com/MinecraftPlus/SrgUtils/issues'
                 }
 
                 licenses {
@@ -96,6 +96,10 @@ publishing {
                     developer {
                         id = 'LexManos'
                         name = 'LexManos'
+                    }
+                    developer {
+                        id = 'theWituch'
+                        name = 'theWituch'
                     }
                 }
             }
