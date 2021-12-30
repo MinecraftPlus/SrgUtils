@@ -77,7 +77,8 @@ public class OperationsTest
 
     private void test(IMappingFile result, Path dest, Format format, Path pattern) throws IOException {
         result.write(dest, format, false);
-        Assertions.assertEquals(getFileContents(pattern), getFileContents(dest), "Pattern differ: " + pattern.getFileName());
+        String pcontent = getFileContents(pattern).replaceAll("\r", ""); // MappingFile writes LF endings
+        Assertions.assertEquals(pcontent, getFileContents(dest), "Pattern differ: " + pattern.getFileName());
     }
 
     private String getFileContents(Path file) {
