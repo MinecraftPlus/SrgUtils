@@ -1,11 +1,19 @@
+# Eclipse
+/.classpath
+/.project
+/.settings
+
+# Idea
+/.idea
+
+# Gradle
+/.gradle
 gradle.properties
+/build
+
+# Other
 bin/
-.gradle/
 repos/
-build/
-.classpath
-.project
-.settings/
 /repo/
 *.log
 src/test/resources/maven/

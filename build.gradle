@@ -8,6 +8,7 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'idea'
     id 'eclipse'
     id 'maven-publish'
     id 'org.cadixdev.licenser' version '0.6.1'
