@@ -96,8 +96,27 @@ public interface IMappingFile {
     void write(Path path, Format format, boolean reversed) throws IOException;
 
     IMappingFile reverse();
+
+    /**
+     * Filters mapping nodes that has equal original and mapped name.
+     * 
+     * <p>Classes and methods are removed only if children nodes can be filtered too.
+     * 
+     * @return filtered mapping without nodes with equal names
+     */
+    IMappingFile filter();
     IMappingFile rename(IRenamer renamer);
     IMappingFile chain(IMappingFile other);
+
+    /**
+     * Fills mapping with nodes from another mapping.
+     * 
+     * <p>Both mapping must have common original side to resolve node linkage.
+     * 
+     * @param other mapping to fill with nodes
+     * @return mapping filled with missing nodes
+     */
+    IMappingFile fill(IMappingFile other);
 
     public interface INode {
         String getOriginal();
@@ -119,6 +138,13 @@ public interface IMappingFile {
          *     "end_line": The source line for the end of this method
          */
         Map<String, String> getMetadata();
+
+        /**
+         * Determines if node can be filtered from mapping.
+         * 
+         * @return {@code true} when node can be filtered
+         */
+        boolean canBeFiltered();
     }
 
     public interface IPackage extends INode {}
