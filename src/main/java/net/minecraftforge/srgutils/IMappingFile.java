@@ -188,6 +188,7 @@ public interface IMappingFile {
          */
         @Nullable
         IParameter getParameter(int index);
+        boolean isConstructor();
     }
 
     public interface IParameter extends IOwnedNode<IMethod> {

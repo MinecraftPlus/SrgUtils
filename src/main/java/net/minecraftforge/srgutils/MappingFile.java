@@ -544,8 +544,13 @@ class MappingFile implements IMappingFile {
 
             @Override
             public boolean canBeFiltered() {
-                return getOriginal().equals(getMapped())
+                return !isConstructor() && getOriginal().equals(getMapped())
                     && (this.paramsView.isEmpty() || this.paramsView.stream().allMatch(p -> p.canBeFiltered()));
+            }
+
+            @Override
+            public boolean isConstructor() {
+                return getOriginal().equals("<init>") || getMapped().equals("<init>");
             }
 
             @Override

@@ -1,0 +1,20 @@
+tsrg2 left right
+cls2 classB
+	fld fieldB
+	fld3 I field3B
+	<init> (Lcls4;)V <init>
+	method2 (Lcls;ZZ)I method2
+		1 leftB1 parameterB
+		2 leftB2 onlyB
+	mtd (Lcls;ZZ)I methodB
+		1 leftB1 parameterB
+		2 leftB2 onlyB
+	mtd3 ([DII)V mtd3
+		2 leftB2 secondB
+cls3 classB2
+	<init> (Lcls4;)V <init>
+		0 par2 par4
+cls5 cls5
+	fld fieldB
+cls7 cls7
+	<init> ()V <init>

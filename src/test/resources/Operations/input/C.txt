@@ -1,0 +1,29 @@
+tsrg2 shared mappedB
+cls1 cls1
+cls2 classB
+	<init> (Lcls4;)V <init>
+		0 par par
+	fld fieldB
+	fld3 I field3B
+	fld4 F fld4
+	method2 (Lcls;ZZ)I method2
+		1 leftB1 parameterB
+		2 leftB2 onlyB
+	mtd (Lcls;ZZ)I methodB
+		1 leftB1 parameterB
+		2 leftB2 onlyB
+	mtd3 ([DII)V mtd3
+		1 leftSame leftSame
+		2 leftB2 secondB
+		3 same same
+cls3 classB2
+	<init> (Lcls4;)V <init>
+		0 par2 par4
+cls4 cls4
+	mtd3 ([DII)V mtd3
+cls5 cls5
+	fld fieldB
+cls6 cls6
+	field field
+cls7 cls7
+	<init> ()V <init>

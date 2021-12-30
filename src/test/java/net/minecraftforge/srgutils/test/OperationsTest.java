@@ -41,7 +41,7 @@ public class OperationsTest
 {
 
     Path root = getRoot().resolve("Operations/");
-    IMappingFile srgA, srgB;
+    IMappingFile srgA, srgB, srgC;
     static FileSystem imfs = Jimfs.newFileSystem(Configuration.unix());
 
     private Path getRoot() {
@@ -58,6 +58,7 @@ public class OperationsTest
     public void init() throws IOException {
         this.srgA = IMappingFile.load(Files.newInputStream(root.resolve("input/A.txt")));
         this.srgB = IMappingFile.load(Files.newInputStream(root.resolve("input/B.txt")));
+        this.srgC = IMappingFile.load(Files.newInputStream(root.resolve("input/C.txt")));
     }
 
     @Test
@@ -73,6 +74,11 @@ public class OperationsTest
     @Test
     public void testFill() throws IOException {
         test(srgA.fill(srgB), imfs.getPath("./out.txt"), Format.TSRG2, root.resolve("pattern/fill.txt"));
+    }
+
+    @Test
+    public void testFilter() throws IOException {
+        test(srgC.filter(), imfs.getPath("./out.txt"), Format.TSRG2, root.resolve("pattern/filter.txt"));
     }
 
     @AfterAll
