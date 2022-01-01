@@ -66,6 +66,11 @@ public class OperationsTest
     }
 
     @Test
+    public void testChain() throws IOException {
+        test(srgA.reverse().chain(srgB), imfs.getPath("./out.txt"), Format.TSRG2, root.resolve("pattern/chain.txt"));
+    }
+
+    @Test
     public void testFill() throws IOException {
         test(srgA.fill(srgB), imfs.getPath("./out.txt"), Format.TSRG2, root.resolve("pattern/fill.txt"));
     }

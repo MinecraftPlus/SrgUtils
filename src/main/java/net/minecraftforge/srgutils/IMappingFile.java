@@ -178,6 +178,16 @@ public interface IMappingFile {
         String getMappedDescriptor();
         Collection<? extends IParameter> getParameters();
         String remapParameter(int index, String name);
+
+        /**
+         * Gets method parameter
+         * 
+         * @param index parameter index
+         * @return parameter to which the specified index is mapped, or {@code null} if this method contains no
+         *         parameter with given index
+         */
+        @Nullable
+        IParameter getParameter(int index);
     }
 
     public interface IParameter extends IOwnedNode<IMethod> {
