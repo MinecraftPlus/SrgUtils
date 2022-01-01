@@ -200,7 +200,7 @@ class MappingFile implements IMappingFile {
         getPackages().stream().filter(p -> !p.canBeFiltered()).forEach(pkg -> ret.addPackage(pkg.getOriginal(), pkg.getMapped(), pkg.getMetadata()));
         getClasses().stream().filter(c -> !c.canBeFiltered()).forEach(cls -> {
             Cls c = ret.addClass(cls.getOriginal(), cls.getMapped(), cls.getMetadata());
-            cls.getFields().stream().filter(f -> !f.canBeFiltered()).forEach(fld -> c.addField(fld.getOriginal(), fld.getMapped(), fld.getMappedDescriptor(), fld.getMetadata()));
+            cls.getFields().stream().filter(f -> !f.canBeFiltered()).forEach(fld -> c.addField(fld.getOriginal(), fld.getMapped(), fld.getDescriptor(), fld.getMetadata()));
             cls.getMethods().stream().filter(m -> !m.canBeFiltered()).forEach(mtd -> {
                 Cls.Method m = c.addMethod(mtd.getOriginal(), mtd.getDescriptor(), mtd.getMapped(), mtd.getMetadata());
                 mtd.getParameters().stream().filter(p -> !p.canBeFiltered()).forEach(par -> m.addParameter(par.getIndex(), par.getOriginal(), par.getMapped(), par.getMetadata()));
