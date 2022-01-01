@@ -1,4 +1,6 @@
 tsrg2 left right
+cls1 cls1
+	<clinit> ()V <clinit>
 cls2 classB
 	fld fieldB
 	fld3 I field3B

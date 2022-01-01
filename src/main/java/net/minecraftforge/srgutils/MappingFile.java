@@ -550,7 +550,8 @@ class MappingFile implements IMappingFile {
 
             @Override
             public boolean isConstructor() {
-                return getOriginal().equals("<init>") || getMapped().equals("<init>");
+                return getOriginal().equals("<init>") || getMapped().equals("<init>")
+                        || getOriginal().equals("<clinit>") || getMapped().equals("<clinit>");
             }
 
             @Override

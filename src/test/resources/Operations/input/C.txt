@@ -1,5 +1,7 @@
 tsrg2 shared mappedB
+cls cls
 cls1 cls1
+	<clinit> ()V <clinit>
 cls2 classB
 	<init> (Lcls4;)V <init>
 		0 par par
