@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenLocal()
+        maven { url = 'https://maven.minecraftplus.org/' }
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
@@ -28,6 +29,7 @@ ext {
 
 repositories {
     mavenLocal()
+    maven { url = 'https://maven.minecraftplus.org/' }
     maven { url = 'https://maven.minecraftforge.net/' }
     mavenCentral()
 }
@@ -106,7 +108,23 @@ publishing {
         }
     }
     repositories {
-        maven gradleutils.publishingForgeMaven
+        maven {
+            name = "minecraftplus"
+            url = "https://maven.minecraftplus.org"
+            allowInsecureProtocol = false
+
+            if (project.version.toString().endsWith("-SNAPSHOT")) {
+                url = url.toString().concat("/snapshots")
+            } else {
+                url = url.toString().concat("/releases")
+            }
+
+            // To know how credentiials see https://docs.gradle.org/current/samples/sample_publishing_credentials.html
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
     }
 }
 
